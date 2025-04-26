@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Compass - Authentication</title>
+  <link rel="stylesheet" href="authentication.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="brand">Community Compass</h1>
+    <div class="form-box">
+      <h2>Enter Authentication Code</h2>
+      <h5>We have sent a six digit code to your Email address. </h5>
+      <form id="authForm">
+        <input type="text" placeholder="Enter the 6-digit code" required />
+        <button type="submit" class="auth-btn">Verify Code</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("authForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      window.location.href = "signin.html"; // Go to Sign In page after code
+    });
+  </script>
+</body>
+</html>
