@@ -1,9 +1,10 @@
+/* style.css */
+
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
-    height: 95vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +15,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-  }  
+  }
   
   .brand {
     font-size: 48px;
@@ -24,7 +25,7 @@ body {
   }
   
   .form-box {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 30px;
     width: 360px;
     border-radius: 20px;
@@ -33,6 +34,8 @@ body {
   
   .form-box h2 {
     margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
   }
   
   input[type="text"],
@@ -48,6 +51,11 @@ body {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 8px;
   }
   
   .signup-btn {
@@ -66,11 +74,31 @@ body {
     background-color: #006666;
   }
   
+  .education-entry,
+  .experience-entry {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+  }
+  
   .form-step {
     display: none;
+    flex-direction: column;
   }
   
   .form-step.active {
-    display: block;
+    display: flex;
+  }
+  
+  @media (max-width: 600px) {
+    .form-box {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .brand {
+      font-size: 36px;
+    }
   }
   
