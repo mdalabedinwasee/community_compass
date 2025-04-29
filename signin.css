@@ -1,3 +1,28 @@
+/* Topbar styling */
+.topbar {
+  width: 96%;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #004c4c;
+}
+
+/* Adjust main content down to not overlap with fixed topbar */
+.container {
+  margin-top: 80px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -15,13 +40,7 @@ body {
     align-items: center;
     text-align: center;
   }
-  
-  .brand {
-    font-size: 48px;
-    color: #004c4c;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
+
   
   .form-box {
     background-color: #fff;
