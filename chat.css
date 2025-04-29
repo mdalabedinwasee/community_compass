@@ -1,5 +1,6 @@
 /* chat.css */
-/* Import styles from option.css */
+
+/* Existing styles (unchanged, copied from previous guide) */
 .topbar {
     width: 96%;
     background-color: #fff;
@@ -100,10 +101,29 @@
     background-color: #f9f9f9;
     border-radius: 6px;
   }
+  
+  /* Updated message styles */
   .message {
-    padding: 8px;
-    margin: 5px 0;
-    border-bottom: 1px solid #eee;
+    max-width: 70%; /* Limit message width for better alignment */
+    padding: 8px 12px;
+    margin: 5px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+  
+  .message.mine {
+    background-color: #008080; /* Match signup-btn color */
+    color: white;
+    margin-left: auto; /* Align right */
+    text-align: right;
+  }
+  
+  .message.other {
+    background-color: #e0e0e0; /* Gray for others */
+    color: #333;
+    margin-right: auto; /* Align left */
     text-align: left;
   }
   
