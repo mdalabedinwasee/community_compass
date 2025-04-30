@@ -82,9 +82,32 @@ h2 {
   margin-bottom: 30px;
 }
 
-/* Community selection */
-.community-selection {
-  margin-bottom: 20px;
+h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 93%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+textarea {
+  height: 80px;
 }
 
 label {
@@ -92,70 +115,96 @@ label {
   font-size: 14px;
   color: #333;
   margin-bottom: 5px;
-  display: block;
 }
 
-select {
-  width: 100%;
-  padding: 12px;
+label input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Profile picture upload styling */
+.profile-picture-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="file"] {
+  width: 93%;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+  background-color: #f9f9f9;
+  cursor: pointer;
 }
 
-/* Welcome section */
-.welcome-section {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+input[type="file"]::-webkit-file-upload-button {
+  background-color: #008080;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.community-details {
-  text-align: center;
+input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #006666;
 }
 
-.community-picture {
-  width: 80px;
+.image-preview {
+  width: 80px; /* Aligned with join_community.css */
   height: 80px;
   border-radius: 50%;
-  object-fit: cover;
+  overflow: hidden;
   border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-h3 {
-  font-size: 18px;
-  color: #333;
-  margin: 0;
-}
-
-h4 {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 10px;
-}
-
-.rules-section label,
-.notification-settings label {
   display: flex;
+  justify-content: center;
   align-items: center;
+  background-color: #f0f2f5;
+}
+
+#preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Welcome image upload styling */
+.welcome-image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-image-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f2f5;
+}
+
+#welcome-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Notification settings */
+.notification-settings {
+  display: flex;
+  flex-direction: column;
   gap: 5px;
-  font-size: 14px;
-  color: #333;
 }
 
-input[type="checkbox"] {
-  margin: 0;
-}
-
-/* Join button */
-.join-btn {
+/* Create button */
+.create-btn {
   background-color: #008080;
   color: white;
   padding: 12px;
@@ -167,7 +216,7 @@ input[type="checkbox"] {
   margin-top: 10px;
 }
 
-.join-btn:hover {
+.create-btn:hover {
   background-color: #006666;
 }
 

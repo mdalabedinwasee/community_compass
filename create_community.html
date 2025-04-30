@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create a Community - Community Compass</title>
+  <link rel="stylesheet" href="create_community.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="logo">Community Compass</div>
+    <div class="hamburger">☰</div>
+    <nav class="nav-links">
+      <a href="profile.html">My Profile</a>
+      <a href="signin.html" id="signout-link">Sign Out</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Create a Community</h2>
+      <form id="createCommunityForm">
+        <!-- Community Name -->
+        <input type="text" placeholder="Community Name" required>
+
+        <!-- Profile Picture Upload -->
+        <label for="profile-picture">Profile Picture:</label>
+        <div class="profile-picture-upload">
+          <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+          <div class="image-preview" id="image-preview">
+            <img id="preview-img" src="" alt="Profile Picture Preview" style="display: none;">
+          </div>
+        </div>
+
+        <!-- Community Description -->
+        <textarea placeholder="Community Description" required></textarea>
+
+        <!-- Visibility Settings -->
+        <label for="visibility">Visibility:</label>
+        <select id="visibility" name="visibility" required>
+          <option value="public">Public (Anyone can join)</option>
+          <option value="private">Private (Invite-only)</option>
+          <option value="restricted">Restricted (Requires approval)</option>
+        </select>
+
+        <!-- Community Rules -->
+        <textarea placeholder="Community Rules (e.g., No spam, Be respectful)" required></textarea>
+
+        <!-- Submit Button -->
+        <button type="submit" class="create-btn">Create Community</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="create_community.js"></script>
+</body>
+</html>
