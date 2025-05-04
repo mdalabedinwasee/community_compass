@@ -35,14 +35,13 @@
 }
 
 .nav-links a {
-  color: #000000;
+  color: #004c4c;
   text-decoration: none;
-  position: relative;
-  font-weight: bold;
+  font-size: 16px;
 }
 
 .nav-links a:hover {
-  color: #008080;
+  color: #006666;
 }
 
 /* Adjust main content down to not overlap with fixed topbar */

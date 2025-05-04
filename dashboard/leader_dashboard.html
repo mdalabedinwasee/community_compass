@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leader Dashboard - Community Compass</title>
+  <link rel="stylesheet" href="leader_dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="logo">Community Compass</div>
+    <div class="hamburger">☰</div>
+    <nav class="nav-links">
+      <a href="profile.html">My Profile</a>
+      <a href="#" id="chat-link">Chat</a>
+      <a href="#" id="create-post-link">Create a Post</a>
+      <a href="#" id="create-poll-link">Create a Poll</a>
+      <a href="#" id="analytics-link">Community Analytics</a>
+      <a href="#" id="notification-link">Notification <span id="notification-count">0</span></a>
+      <a href="signin.html" id="signout-link">Sign Out</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2 id="dashboard-title">Leader Dashboard</h2>
+
+    <!-- Community Feed Section -->
+    <div class="feed-section">
+      <h3>Community Feed</h3>
+      <div id="feed"></div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="modal">
+      <div class="modal-content">
+        <h3>Community Chat</h3>
+        <div id="join-form" style="display: block;">
+          <input type="text" id="username" placeholder="Enter your username" required>
+          <input type="text" id="community-id" placeholder="Enter community ID" required>
+          <button type="button" class="signup-btn" onclick="joinChat()">Join Chat</button>
+        </div>
+        <div id="chat-container" style="display: none;">
+          <div id="chat-messages"></div>
+          <form id="chat-form">
+            <input type="text" id="message-input" placeholder="Type a message..." required>
+            <button type="submit" class="signup-btn">Send</button>
+          </form>
+        </div>
+        <button id="close-chat" class="close-modal">Close</button>
+      </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="create-post-modal" class="modal">
+      <div class="modal-content">
+        <h3>Create a Post</h3>
+        <textarea id="post-content" placeholder="Write your post here..." required></textarea>
+        <label for="post-image">Attach Image (Optional):</label>
+        <input type="file" id="post-image" accept="image/*">
+        <div class="image-preview" id="post-image-preview">
+          <img id="post-preview-img" src="" alt="Post Image Preview" style="display: none;">
+        </div>
+        <button id="submit-post">Post</button>
+        <button id="close-create-post" class="close-modal">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Create Poll Modal -->
+    <div id="create-poll-modal" class="modal">
+      <div class="modal-content">
+        <h3>Create a Poll</h3>
+        <input type="text" id="poll-question" placeholder="Poll Question" required>
+        <div id="poll-options">
+          <input type="text" class="poll-option" placeholder="Option 1" required>
+          <input type="text" class="poll-option" placeholder="Option 2" required>
+        </div>
+        <button id="add-poll-option">Add Option</button>
+        <button id="submit-poll">Create Poll</button>
+        <button id="close-create-poll" class="close-modal">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Community Analytics Modal -->
+    <div id="analytics-modal" class="modal">
+      <div class="modal-content">
+        <h3>Community Analytics</h3>
+        <div class="analytics-grid">
+          <div class="analytic-card">
+            <h4>Members</h4>
+            <p id="member-count">0</p>
+          </div>
+          <div class="analytic-card">
+            <h4>Posts</h4>
+            <p id="post-count">0</p>
+          </div>
+          <div class="analytic-card">
+            <h4>Recent Activity</h4>
+            <p id="recent-activity">No recent activity</p>
+          </div>
+        </div>
+        <button id="close-analytics" class="close-modal">Close</button>
+      </div>
+    </div>
+
+    <!-- Emergency Alert Modal -->
+    <div id="emergency-modal" class="modal">
+      <div class="modal-content">
+        <h3>Emergency Alert</h3>
+        <textarea id="emergency-description" placeholder="Describe the emergency..." required></textarea>
+        <button id="send-emergency">Send</button>
+        <button id="cancel-emergency">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Emergency Alert Button -->
+    <button id="emergency-alert-button" class="floating-button">SOS</button>
+  </div>
+
+  <script src="leader_dashboard.js"></script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93a729ddcdebbf9a',t:'MTc0NjM1Mjk1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

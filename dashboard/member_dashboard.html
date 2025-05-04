@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Member Dashboard - Community Compass</title>
+  <link rel="stylesheet" href="member_dashboard.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <div class="logo">Community Compass</div>
+    <div class="hamburger">☰</div>
+    <nav class="nav-links">
+      <a href="profile.html">My Profile</a>
+      <a href="#" id="notification-bell">🔔 <span id="notification-count">0</span></a>
+      <a href="signin.html" id="signout-link">Sign Out</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Member Dashboard</h2>
+
+    <!-- Posts and Polls Feed -->
+    <div class="feed-section">
+      <h3>Community Feed</h3>
+      <div id="feed"></div>
+    </div>
+
+    <!-- Chat Box Section -->
+    <div class="chat-box-section">
+      <h3>Community Chat</h3>
+      <div class="chat-members">
+        <h4>Online Members</h4>
+        <ul id="chat-members-list">
+          <li>Member 1</li>
+          <li>Member 2</li>
+        </ul>
+      </div>
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chat-input">
+        <input type="text" id="chat-input" placeholder="Type a message...">
+        <button id="send-chat">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="member_dashboard.js"></script>
+</body>
+</html>

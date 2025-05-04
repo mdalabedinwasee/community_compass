@@ -41,6 +41,11 @@ function validateForm(formData) {
     isValid = false;
   }
 
+  if (formData.visibility === 'restricted' && !formData.joinMessage) {
+    showError(document.getElementById('join-message'), 'Join message is required for restricted communities');
+    isValid = false;
+  }
+
   return isValid;
 }
 
@@ -100,32 +105,6 @@ function setupVisibilityDependencies() {
   });
 }
 
-// Function to handle introduction prompt dependencies
-function setupIntroPromptDependencies() {
-  const introPromptCheckbox = document.getElementById('intro-prompt');
-  const introChannelSection = document.getElementById('intro-channel');
-  const introChannelInput = document.getElementById('intro-channel');
-
-  introPromptCheckbox.addEventListener('change', (event) => {
-    if (event.target.checked) {
-      introChannelSection.style.display = 'block';
-      introChannelInput.disabled = false;
-    } else {
-      introChannelSection.style.display = 'none';
-      introChannelInput.disabled = true;
-    }
-  });
-
-  // Initial state
-  if (introPromptCheckbox.checked) {
-    introChannelSection.style.display = 'block';
-    introChannelInput.disabled = false;
-  } else {
-    introChannelSection.style.display = 'none';
-    introChannelInput.disabled = true;
-  }
-}
-
 // Function to handle form submission
 function handleFormSubmission() {
   const form = document.getElementById('createCommunityForm');
@@ -143,8 +122,6 @@ function handleFormSubmission() {
       visibility: document.querySelector('#visibility').value,
       joinMessage: document.getElementById('join-message').value.trim() || null,
       rules: document.querySelector('textarea[placeholder="Community Rules (e.g., No spam, Be respectful)"]').value.trim(),
-      introPrompt: document.getElementById('intro-prompt').checked,
-      introChannel: document.getElementById('intro-channel').value.trim() || null,
       defaultNotificationSettings: {
         notifyMessages: document.getElementById('default-notify-messages').checked,
         notifyMentions: document.getElementById('default-notify-mentions').checked
@@ -194,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupProfilePicturePreview();
   setupWelcomeImagePreview();
   setupVisibilityDependencies();
-  setupIntroPromptDependencies();
   handleFormSubmission();
   setupHamburgerMenu();
   setupSignOut();

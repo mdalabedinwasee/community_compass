@@ -64,6 +64,15 @@ body {
   text-align: center;
 }
 
+/* Add or modify the .brand class */
+.brand {
+  font-size: 24px; /* Change this value to adjust font size (e.g., 18px, 30px) */
+  color: #333; /* Adjust color if needed */
+  margin-bottom: 20px; /* Move downward by increasing this value, e.g., 30px, 40px */
+  /* To move upward, use a negative margin-top, e.g., margin-top: -10px */
+}
+
+/* Form box styling */
 .form-box {
   background-color: #fff;
   padding: 30px;
