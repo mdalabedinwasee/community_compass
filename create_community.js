@@ -132,8 +132,8 @@ function handleFormSubmission() {
     if (validateForm(formData)) {
       try {
         console.log('Community Data:', formData);
-        alert('Community created successfully! Redirecting to chat...');
-        window.location.href = 'chat.html';
+        alert('Community created successfully! Redirecting to Dashboard...');
+        window.location.href = 'leader_dashboard.html';
       } catch (error) {
         showError(document.querySelector('.create-btn'), 'An error occurred. Please try again.');
       }
