@@ -1,43 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Community Compass - Sign Up</title>
-  <link rel="stylesheet" href="signup.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Compass - Sign Up</title>
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="logo">Community Compass</div>
+      <div class="hamburger">☰</div>
+      <nav class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="signin.html">Sign In</a>
+      </nav>
+    </header>
 
-<!-- Top Navigation Bar -->
-<header class="topbar">
-  <div class="logo">Community Compass</div>
-  <div class="hamburger">☰</div>
-  <nav class="nav-menu">
-    <a href="index.html">Home</a>
-    <a href="signup.html">Sign Up</a>
-    <a href="signin.html">Sign In</a>
-  </nav>
-</header>
-
-<div class="container">
-  <div class="form-box">
-    <h2>Create a new account</h2>
-    <form>
-      <div class="name-fields">
-        <input type="text" placeholder="First name" required>
-        <input type="text" placeholder="Surname" required>
+    <div class="container">
+      <div class="form-box">
+        <h2>Create a new account</h2>
+        <form>
+          <div class="name-fields">
+            <input type="text" placeholder="First name" required />
+            <input type="text" placeholder="Surname" required />
+          </div>
+          <input type="email" placeholder="Email address" required />
+          <input type="tel" placeholder="Phone number" required />
+          <input type="password" placeholder="New password" required />
+          <input type="password" placeholder="Re-type password" required />
+          <button type="submit" class="signup-btn">Sign Up</button>
+          <p class="signin-link">
+            Already have an account? <a href="signin.html">Sign in</a>
+          </p>
+        </form>
       </div>
-      <input type="email" placeholder="Email address" required>
-      <input type="tel" placeholder="Phone number" required>
-      <input type="password" placeholder="New password" required>
-      <input type="password" placeholder="Re-type password" required>
-      <button type="submit" class="signup-btn">Sign Up</button>
-      <p class="signin-link">Already have an account? <a href="signin.html">Sign in</a></p>
-    </form>
-  </div>
-</div>
+    </div>
 
-<script src="signup.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93853d2e9f7cb043',t:'MTc0NTk5NzIzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-</body>
+    <script src="signup.js"></script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'93853d2e9f7cb043',t:'MTc0NTk5NzIzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
 </html>

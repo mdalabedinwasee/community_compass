@@ -1,218 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Your Profile</title>
-  <link rel="stylesheet" href="edit_profile.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create Your Profile</title>
+    <link rel="stylesheet" href="edit_profile.css" />
+  </head>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="logo">Community Compass</div>
+      <div class="hamburger">☰</div>
+      <nav class="nav-links">
+        <a href="leader_dashboard.html">Back to Home</a>
+        <a href="signin.html" id="signout-link">Sign Out</a>
+      </nav>
+    </header>
 
-<div class="container">
-  <div class="brand">Community Compass</div>
-  
-  <div class="form-box">
-    <form id="multiStepForm">
-      
-      <!-- Step 1: Basic Information -->
-      <div class="form-step active">
-        <h2>Basic Information</h2>
-        <input type="text" name="fullName" placeholder="Your Full Name" required>
-        <input type="text" name="location" placeholder="Your Current Location" required>
-        <input type="text" name="community_username" placeholder="Username of the community you want to join" required>
-        <input type="date" name="dob" placeholder="Your Date of Birth" required>
-        
-        <select name="gender" required>
-          <option value="">Select Gender</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Others</option>
-        </select>
-
-        <select name="division" required>
-          <option value="">Select Division</option>
-          <option>Dhaka</option>
-          <option>Chattogram</option>
-          <option>Rajshahi</option>
-          <option>Khulna</option>
-          <option>Barishal</option>
-          <option>Sylhet</option>
-          <option>Mymensingh</option>
-          <option>Rangpur</option>
-        </select>
-
-        <input type="text" name="postalCode" placeholder="Postal Code" required>
-        <input type="text" name="country" placeholder="Country" required>
-        <input type="text" name="aboutMe" placeholder="About Me" required>
-
-        <button type="button" class="signup-btn" onclick="nextStep()">Next</button>
-      </div>
-
-      <!-- Step 2: Your Education -->
-      <div class="form-step">
-        <h2>Your Education</h2>
-        <div id="educationFields">
-          <div class="education-entry">
-            <input type="text" name="institutionName[]" placeholder="Institution Name" required>
-            
-            <select name="educationLevel[]" required>
-              <option value="">Select Education Level</option>
-              <option>SSC</option>
-              <option>HSC</option>
-              <option>Bachelor's</option>
-              <option>Master's</option>
-              <option>PhD</option>
+    <div class="container">
+      <div class="form-box">
+        <div class="progress-indicator">
+          <span class="step active" data-step="0">1</span>
+          <span class="step" data-step="1">2</span>
+          <span class="step" data-step="2">3</span>
+          <span class="step" data-step="3">4</span>
+          <span class="step" data-step="4">5</span>
+          <span class="step" data-step="5">6</span>
+          <span class="step" data-step="6">7</span>
+        </div>
+        <form
+          id="multiStepForm"
+          role="form"
+          aria-label="Multi-step profile creation form"
+        >
+          <!-- Step 1: Basic Information -->
+          <div
+            class="form-step active"
+            role="region"
+            aria-label="Step 1: Basic Information"
+            aria-hidden="false"
+          >
+            <h2>Basic Information</h2>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Your Full Name"
+              required
+            />
+            <input
+              type="text"
+              name="present_address"
+              placeholder="Your Current Address"
+              required
+            />
+            <input
+              type="text"
+              name="permanent_location"
+              placeholder="Your Permanent Address"
+              required
+            />
+            <input
+              type="date"
+              name="dob"
+              placeholder="Your Date of Birth"
+              required
+            />
+            <select name="gender" required>
+              <option value="">Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Others</option>
             </select>
-
-            <input type="text" name="major[]" placeholder="Concentration or Major Group" required>
-            <input type="text" name="result[]" placeholder="Result (GPA/Year)" required>
-          </div>
-        </div>
-        
-        <button type="button" class="signup-btn" onclick="addEducation()">Add Another Degree</button>
-        <button type="button" class="signup-btn" onclick="nextStep()">Next</button>
-        <button type="button" class="signup-btn" onclick="prevStep()">Back</button>
-      </div>
-
-      <!-- Step 3: Work Experience -->
-      <div class="form-step">
-        <h2>Work Experience</h2>
-        <div id="experienceFields">
-          <div class="experience-entry">
-            <input type="text" name="companyName[]" placeholder="Company Name">
-            <input type="text" name="position[]" placeholder="Your Position">
-            <input type="text" name="workLocation[]" placeholder="Location">
-            
-            <select name="jobType[]">
-              <option value="">Select Job Type</option>
-              <option>Full Time</option>
-              <option>Part Time</option>
-              <option>Internship</option>
-              <option>Contract</option>
-              <option>Remote</option>
+            <select name="division" required>
+              <option value="">Select Division</option>
+              <option>Dhaka</option>
+              <option>Chattogram</option>
+              <option>Rajshahi</option>
+              <option>Khulna</option>
+              <option>Barishal</option>
+              <option>Sylhet</option>
+              <option>Mymensingh</option>
+              <option>Rangpur</option>
             </select>
-
-            <input type="number" name="startDate[]" placeholder="Start Year">
-            <input type="number" name="endDate[]" placeholder="End Year">
+            <select name="division" required>
+              <option value="">Select District</option>
+              <option>Bagerhat</option>
+              <option>Bandarban</option>
+              <option>Barisal</option>
+              <option>Barguna</option>
+              <option>Bhola</option>
+              <option>Bogra</option>
+              <option>Brahmanbaria</option>
+              <option>Chandpur</option>
+              <option>Chittagong</option>
+              <option>Chuadanga</option>
+              <option>Comilla</option>
+              <option>Cox's Bazar</option>
+              <option>Dhaka</option>
+              <option>Dinajpur</option>
+              <option>Faridpur</option>
+              <option>Feni</option>
+              <option>Gaibandha</option>
+              <option>Gazipur</option>
+              <option>Gopalganj</option>
+              <option>Habiganj</option>
+              <option>Jamalpur</option>
+              <option>Jessore</option>
+              <option>Jhalokati</option>
+              <option>Jhenaidah</option>
+              <option>Joypurhat</option>
+              <option>Khagrachari</option>
+              <option>Khulna</option>
+              <option>Kishoreganj</option>
+              <option>Kurigram</option>
+              <option>Kushtia</option>
+              <option>Lakshmipur</option>
+              <option>Lalmonirhat</option>
+              <option>Magura</option>
+              <option>Manikganj</option>
+              <option>Maulvibazar</option>
+              <option>Meherpur</option>
+              <option>Madaripur</option>
+              <option>Munshiganj</option>
+              <option>Mymensingh</option>
+              <option>Naogaon</option>
+              <option>Narail</option>
+              <option>Narayanganj</option>
+              <option>Narsingdi</option>
+              <option>Natore</option>
+              <option>Nawabganj</option>
+              <option>Netrokona</option>
+              <option>Nilphamari</option>
+              <option>Noakhali</option>
+              <option>Pabna</option>
+              <option>Panchagarh</option>
+              <option>Patuakhali</option>
+              <option>Pirojpur</option>
+              <option>Rajbari</option>
+              <option>Rajshahi</option>
+              <option>Rangamati</option>
+              <option>Rangpur</option>
+              <option>Sherpur</option>
+              <option>Satkhira</option>
+              <option>Shariatpur</option>
+              <option>Sirajgonj</option>
+              <option>Sunamganj</option>
+              <option>Sylhet</option>
+              <option>Tangail</option>
+              <option>Thakurgaon</option>
+            </select>
+            <input
+              type="text"
+              name="postalCode"
+              placeholder="Postal Code"
+              required
+            />
+            <input type="text" name="country" placeholder="Country" required />
+            <input type="text" name="aboutMe" placeholder="About You" />
+            <button type="button" class="signup-btn" data-action="next">
+              Next
+            </button>
           </div>
-        </div>
 
-        <button type="button" class="signup-btn" onclick="addExperience()">Add Another Position</button>
-        <button type="button" class="signup-btn" onclick="nextStep()">Next</button>
-        <button type="button" class="signup-btn" onclick="prevStep()">Back</button>
+          <!-- Step 2: Your Education -->
+          <div
+            class="form-step"
+            role="region"
+            aria-label="Step 2: Your Education"
+            aria-hidden="true"
+          >
+            <h2>Your Education</h2>
+            <div id="educationFields">
+              <div class="education-entry">
+                <input
+                  type="text"
+                  name="institutionName[]"
+                  placeholder="Institution Name"
+                />
+                <select name="educationLevel[]">
+                  <option value="">Select Education Level</option>
+                  <option>SSC</option>
+                  <option>HSC</option>
+                  <option>Bachelor's</option>
+                  <option>Master's</option>
+                  <option>PhD</option>
+                </select>
+                <input
+                  type="text"
+                  name="major[]"
+                  placeholder="Concentration or Major Group"
+                />
+                <input
+                  type="text"
+                  name="result[]"
+                  placeholder="Result (GPA/Year)"
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              class="signup-btn"
+              data-action="add-education"
+            >
+              Add Another Degree
+            </button>
+            <button type="button" class="signup-btn" data-action="next">
+              Next
+            </button>
+            <button type="button" class="signup-btn" data-action="prev">
+              Back
+            </button>
+          </div>
+
+          <!-- Step 3: Work Experience -->
+          <div
+            class="form-step"
+            role="region"
+            aria-label="Step 3: Work Experience"
+            aria-hidden="true"
+          >
+            <h2>Work Experience</h2>
+            <div id="experienceFields">
+              <div class="experience-entry">
+                <input
+                  type="text"
+                  name="companyName[]"
+                  placeholder="Company Name"
+                />
+                <input
+                  type="text"
+                  name="position[]"
+                  placeholder="Your Position"
+                />
+                <input
+                  type="text"
+                  name="workLocation[]"
+                  placeholder="Location"
+                />
+                <select name="jobType[]">
+                  <option value="">Select Job Type</option>
+                  <option>Full Time</option>
+                  <option>Part Time</option>
+                  <option>Internship</option>
+                  <option>Contract</option>
+                  <option>Remote</option>
+                </select>
+                <input
+                  type="number"
+                  name="startDate[]"
+                  placeholder="Start Year"
+                />
+                <input type="number" name="endDate[]" placeholder="End Year" />
+              </div>
+            </div>
+            <button
+              type="button"
+              class="signup-btn"
+              data-action="add-experience"
+            >
+              Add Another Position
+            </button>
+            <button type="button" class="signup-btn" data-action="next">
+              Next
+            </button>
+            <button type="button" class="signup-btn" data-action="prev">
+              Back
+            </button>
+          </div>
+
+          <!-- Step 4: Your Interests -->
+          <div
+            class="form-step"
+            role="region"
+            aria-label="Step 4: Your Interests"
+            aria-hidden="true"
+          >
+            <h2>Your Interests</h2>
+            <div style="text-align: left">
+              <label
+                ><input type="checkbox" name="interests" value="Technology" />
+                Technology</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Business" />
+                Business</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Art" />
+                Art</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Sports" />
+                Sports</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Travel" />
+                Travel</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Music" />
+                Music</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Food" />
+                Food</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Fashion" />
+                Fashion</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Gaming" />
+                Gaming</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Photography" />
+                Photography</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Literature" />
+                Literature</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Science" />
+                Science</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Fitness" />
+                Fitness</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Nature" />
+                Nature</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Movies" />
+                Movies</label
+              ><br />
+              <label
+                ><input type="checkbox" name="interests" value="Others" />
+                Others</label
+              ><br />
+            </div>
+            <button type="button" class="signup-btn" data-action="next">
+              Next
+            </button>
+            <button type="button" class="signup-btn" data-action="prev">
+              Back
+            </button>
+          </div>
+
+          <!-- Step 5: Your Skills -->
+          <div
+            class="form-step"
+            role="region"
+            aria-label="Step 5: Your Skills"
+            aria-hidden="true"
+          >
+            <h2>Your Skills</h2>
+            <input type="text" name="softSkill" placeholder="Soft Skill" />
+            <input
+              type="text"
+              name="technicalSkill"
+              placeholder="Technical Skill"
+            />
+            <button type="button" class="signup-btn" data-action="next">
+              Next
+            </button>
+            <button type="button" class="signup-btn" data-action="prev">
+              Back
+            </button>
+          </div>
+
+          <!-- Step 6: Dream Job -->
+          <div
+            class="form-step"
+            role="region"
+            aria-label="Step 6: Dream Job"
+            aria-hidden="true"
+          >
+            <h2>Dream Job</h2>
+            <input
+              type="text"
+              name="dreamJob"
+              placeholder="What's your dream job?"
+            />
+            <button type="button" class="signup-btn" data-action="next">
+              Next
+            </button>
+            <button type="button" class="signup-btn" data-action="prev">
+              Back
+            </button>
+          </div>
+
+          <!-- Step 7: Emergency Information -->
+          <div
+            class="form-step"
+            role="region"
+            aria-label="Step 7: Emergency Information"
+            aria-hidden="true"
+          >
+            <h2>Emergency Information</h2>
+            <input
+              type="text"
+              name="emergencyFullName"
+              placeholder="Full Name"
+              required
+            />
+            <input
+              type="text"
+              name="emergencyFatherName"
+              placeholder="Your Father Name"
+              required
+            />
+            <input
+              type="text"
+              name="emergencyMotherName"
+              placeholder="Your Mother Name"
+              required
+            />
+            <input
+              type="tel"
+              name="emergencyContact"
+              placeholder="Emergency Contact Number"
+              required
+            />
+            <input
+              type="tel"
+              name="emergencyNidNo"
+              placeholder="Your NID Number"
+              required
+            />
+            <select name="bloodType" required>
+              <option value="">Select Blood Type</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+            <input
+              type="text"
+              name="present_address"
+              placeholder="Your Current Address"
+              required
+            />
+            <button type="submit" class="signup-btn">Submit Profile</button>
+            <button type="button" class="signup-btn" data-action="prev">
+              Back
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
 
-      <!-- Step 4: Your Interests -->
-      <div class="form-step">
-        <h2>Your Interests</h2>
-        <div style="text-align:left;">
-          <input type="checkbox" name="interests" value="Technology"> Technology<br>
-          <input type="checkbox" name="interests" value="Business"> Business<br>
-          <input type="checkbox" name="interests" value="Art"> Art<br>
-          <input type="checkbox" name="interests" value="Sports"> Sports<br>
-          <input type="checkbox" name="interests" value="Travel"> Travel<br>
-        </div>
-
-        <button type="button" class="signup-btn" onclick="nextStep()">Next</button>
-        <button type="button" class="signup-btn" onclick="prevStep()">Back</button>
-      </div>
-
-      <!-- Step 5: Your Skills -->
-      <div class="form-step">
-        <h2>Your Skills</h2>
-        <input type="text" name="softSkill" placeholder="Soft Skill">
-        <input type="text" name="technicalSkill" placeholder="Technical Skill">
-
-        <button type="button" class="signup-btn" onclick="nextStep()">Next</button>
-        <button type="button" class="signup-btn" onclick="prevStep()">Back</button>
-      </div>
-
-      <!-- Step 6: Dream Job -->
-      <div class="form-step">
-        <h2>Dream Job</h2>
-        <input type="text" name="dreamJob" placeholder="What's your dream job?">
-
-        <button type="submit" class="signup-btn">Submit</button>
-        <button type="button" class="signup-btn" onclick="prevStep()">Back</button>
-      </div>
-
-    </form>
-  </div>
-</div>
-
-<script>
-  let currentStep = 0;
-  const formSteps = document.querySelectorAll(".form-step");
-
-  function showStep(step) {
-    formSteps.forEach((formStep, index) => {
-      formStep.classList.toggle("active", index === step);
-    });
-  }
-
-  function nextStep() {
-    if (currentStep < formSteps.length - 1) {
-      currentStep++;
-      showStep(currentStep);
-    }
-  }
-
-  function prevStep() {
-    if (currentStep > 0) {
-      currentStep--;
-      showStep(currentStep);
-    }
-  }
-
-  function addEducation() {
-    const educationFields = document.getElementById("educationFields");
-    const newEntry = document.createElement("div");
-    newEntry.classList.add("education-entry");
-    newEntry.innerHTML = `
-      <input type="text" name="institutionName[]" placeholder="Institution Name" required>
-      <select name="educationLevel[]" required>
-        <option value="">Select Education Level</option>
-        <option>SSC</option>
-        <option>HSC</option>
-        <option>Bachelor's</option>
-        <option>Master's</option>
-        <option>PhD</option>
-      </select>
-      <input type="text" name="major[]" placeholder="Concentration or Major Group" required>
-      <input type="text" name="result[]" placeholder="Result (GPA/Year)" required>
-    `;
-    educationFields.appendChild(newEntry);
-  }
-
-  function addExperience() {
-    const experienceFields = document.getElementById("experienceFields");
-    const newEntry = document.createElement("div");
-    newEntry.classList.add("experience-entry");
-    newEntry.innerHTML = `
-      <input type="text" name="companyName[]" placeholder="Company Name">
-      <input type="text" name="position[]" placeholder="Your Position">
-      <input type="text" name="workLocation[]" placeholder="Location">
-      <select name="jobType[]">
-        <option value="">Select Job Type</option>
-        <option>Full Time</option>
-        <option>Part Time</option>
-        <option>Internship</option>
-        <option>Contract</option>
-        <option>Remote</option>
-      </select>
-      <input type="number" name="startDate[]" placeholder="Start Year">
-      <input type="number" name="endDate[]" placeholder="End Year">
-    `;
-    experienceFields.appendChild(newEntry);
-  }
-
-  document.getElementById("multiStepForm").addEventListener("submit", function(event){
-    event.preventDefault();
-    alert("Profile Created Successfully!");
-  });
-
-  showStep(currentStep);
-</script>
-
-</body>
+    <script src="edit_profile.js"></script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'93c209a27cabadcf',t:'MTc0NjYzNDc1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
 </html>

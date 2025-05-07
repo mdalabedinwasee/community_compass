@@ -1,91 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create a Community - Community Compass</title>
-  <link rel="stylesheet" href="create_community.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create a Community - Community Compass</title>
+    <link rel="stylesheet" href="create_community.css" />
+  </head>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="logo">Community Compass</div>
+      <div class="hamburger">☰</div>
+      <nav class="nav-links">
+        <a href="profile.html">My Profile</a>
+        <a href="signin.html" id="signout-link">Sign Out</a>
+      </nav>
+    </header>
 
-  <!-- Top Navigation Bar -->
-  <header class="topbar">
-    <div class="logo">Community Compass</div>
-    <div class="hamburger">☰</div>
-    <nav class="nav-links">
-      <a href="profile.html">My Profile</a>
-      <a href="signin.html" id="signout-link">Sign Out</a>
-    </nav>
-  </header>
+    <div class="container">
+      <div class="form-box">
+        <h2>Create a Community</h2>
+        <form id="createCommunityForm">
+          <!-- Community Name -->
+          <input type="text" placeholder="Community Name" required />
 
-  <div class="container">
-    <div class="form-box">
-      <h2>Create a Community</h2>
-      <form id="createCommunityForm">
-        <!-- Community Name -->
-        <input type="text" placeholder="Community Name" required>
-
-        <!-- Profile Picture Upload -->
-        <label for="profile-picture">Profile Picture:</label>
-        <div class="profile-picture-upload">
-          <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
-          <div class="image-preview" id="image-preview">
-            <img id="preview-img" src="" alt="Profile Picture Preview" style="display: none;">
+          <!-- Profile Picture Upload -->
+          <label for="profile-picture">Profile Picture:</label>
+          <div class="profile-picture-upload">
+            <input
+              type="file"
+              id="profile-picture"
+              name="profile-picture"
+              accept="image/*"
+            />
+            <div class="image-preview" id="image-preview">
+              <img
+                id="preview-img"
+                src=""
+                alt="Profile Picture Preview"
+                style="display: none"
+              />
+            </div>
           </div>
-        </div>
 
-        <!-- Community Description -->
-        <textarea placeholder="Community Description" required></textarea>
+          <!-- Community Description -->
+          <textarea placeholder="Community Description" required></textarea>
 
-        <!-- Welcome Message -->
-        <label for="welcome-message">Welcome Message:</label>
-        <textarea id="welcome-message" placeholder="Welcome message for new members (e.g., Welcome to our community!)" required></textarea>
+          <!-- Welcome Message -->
+          <label for="welcome-message">Welcome Message:</label>
+          <textarea
+            id="welcome-message"
+            placeholder="Welcome message for new members (e.g., Welcome to our community!)"
+            required
+          ></textarea>
 
-        <!-- Welcome Image Upload -->
-        <label for="welcome-image">Welcome Image (Optional):</label>
-        <div class="welcome-image-upload">
-          <input type="file" id="welcome-image" name="welcome-image" accept="image/*">
-          <div class="welcome-image-preview" id="welcome-image-preview">
-            <img id="welcome-preview-img" src="" alt="Welcome Image Preview" style="display: none;">
+          <!-- Welcome Image Upload -->
+          <label for="welcome-image">Welcome Image (Optional):</label>
+          <div class="welcome-image-upload">
+            <input
+              type="file"
+              id="welcome-image"
+              name="welcome-image"
+              accept="image/*"
+            />
+            <div class="welcome-image-preview" id="welcome-image-preview">
+              <img
+                id="welcome-preview-img"
+                src=""
+                alt="Welcome Image Preview"
+                style="display: none"
+              />
+            </div>
           </div>
-        </div>
 
-        <!-- Visibility Settings -->
-        <label for="visibility">Visibility:</label>
-        <select id="visibility" name="visibility" required>
-          <option value="public">Public (Anyone can join)</option>
-          <option value="private">Private (Invite-only)</option>
-          <option value="restricted">Restricted (Requires approval)</option>
-        </select>
+          <!-- Visibility Settings -->
+          <label for="visibility">Visibility:</label>
+          <select id="visibility" name="visibility" required>
+            <option value="public">Public (Anyone can join)</option>
+            <option value="private">Private (Invite-only)</option>
+            <option value="restricted">Restricted (Requires approval)</option>
+          </select>
 
-        <!-- Join Message for Restricted Communities -->
-        <div id="join-message-section" style="display: none;">
-          <label for="join-message">Join Message (Displayed on join request):</label>
-          <textarea id="join-message" placeholder="Message for users requesting to join (e.g., Please tell us why you want to join)"></textarea>
-        </div>
+          <!-- Join Message for Restricted Communities -->
+          <div id="join-message-section" style="display: none">
+            <label for="join-message"
+              >Join Message (Displayed on join request):</label
+            >
+            <textarea
+              id="join-message"
+              placeholder="Message for users requesting to join (e.g., Please tell us why you want to join)"
+            ></textarea>
+          </div>
 
-        <!-- Community Rules -->
-        <textarea placeholder="Community Rules (e.g., No spam, Be respectful)" required></textarea>
+          <!-- Community Rules -->
+          <textarea
+            placeholder="Community Rules (e.g., No spam, Be respectful)"
+            required
+          ></textarea>
 
-        <!-- Default Notification Settings -->
-        <div class="notification-settings">
-          <h4>Default Notification Settings</h4>
-          <label>
-            <input type="checkbox" id="default-notify-messages" checked>
-            Notify members of new messages
-          </label>
-          <label>
-            <input type="checkbox" id="default-notify-mentions" checked>
-            Notify members of mentions
-          </label>
-        </div>
+          <!-- Default Notification Settings -->
+          <div class="notification-settings">
+            <h4>Default Notification Settings</h4>
+            <label>
+              <input type="checkbox" id="default-notify-messages" checked />
+              Notify members of new messages
+            </label>
+            <label>
+              <input type="checkbox" id="default-notify-mentions" checked />
+              Notify members of mentions
+            </label>
+          </div>
 
-        <!-- Submit Button -->
-        <button type="submit" class="create-btn">Create Community</button>
-      </form>
+          <!-- Submit Button -->
+          <button type="submit" class="create-btn">Create Community</button>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <script src="create_community.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93a6432d7c70d1b5',t:'MTc0NjM0MzUwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    <script src="create_community.js"></script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'93a6432d7c70d1b5',t:'MTc0NjM0MzUwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
 </html>

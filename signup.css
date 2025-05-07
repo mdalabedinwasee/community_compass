@@ -133,7 +133,13 @@ input[type="password"] {
 
 /* Remove position: relative from input since toggle is no longer inside */
 input[type="password"] {
-  /* Remove position: relative */
+  width: 94%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  position: static; /* Explicitly set to default to remove any inherited relative positioning */
 }
 
 /* Error message styling */

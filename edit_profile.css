@@ -1,104 +1,198 @@
-/* style.css */
+/* edit_profile.css */
+
+/* Topbar styling */
+.topbar {
+  width: 96%;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #004c4c;
+}
+
+/* Hamburger menu styling */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #004c4c;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: #004c4c;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.nav-links a:hover {
+  color: #006666;
+}
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+.container {
+  margin-top: 80px; /* Adjusted for fixed topbar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.form-box {
+  background-color: #ffffff;
+  padding: 30px;
+  width: 360px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.form-box h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  width: 94%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.signup-btn {
+  background-color: #008080;
+  color: white;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.signup-btn:hover {
+  background-color: #006666;
+}
+
+.education-entry,
+.experience-entry {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+
+.form-step {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+}
+
+.form-step.active {
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+  pointer-events: auto;
+}
+
+.progress-indicator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: white;
+  text-align: center;
+  margin: 0 5px;
+  font-size: 14px;
+}
+
+.step.active {
+  background-color: #008080;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
   }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .brand {
-    font-size: 48px;
-    color: #004c4c;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  .form-box {
-    background-color: #ffffff;
-    padding: 30px;
-    width: 360px;
-    border-radius: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-box h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="password"],
-  input[type="date"],
-  input[type="number"],
-  select {
-    width: 94%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-  }
-  
-  input[type="checkbox"] {
-    margin-right: 8px;
-  }
-  
-  .signup-btn {
-    background-color: #008080;
-    color: white;
-    padding: 12px;
-    border: none;
-    width: 100%;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .signup-btn:hover {
-    background-color: #006666;
-  }
-  
-  .education-entry,
-  .experience-entry {
-    background-color: #f9f9f9;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 6px;
-  }
-  
-  .form-step {
+
+  .nav-links {
     display: none;
     flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
-  .form-step.active {
+
+  .nav-links.active {
     display: flex;
   }
-  
-  @media (max-width: 600px) {
-    .form-box {
-      width: 90%;
-      padding: 20px;
-    }
-  
-    .brand {
-      font-size: 36px;
-    }
+
+  .nav-links a {
+    padding: 10px 0;
   }
-  
+
+  .form-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .container {
+    margin-top: 80px; /* Adjusted for mobile */
+  }
+}

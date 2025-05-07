@@ -1,67 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Join a Community - Community Compass</title>
-  <link rel="stylesheet" href="join_community.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Join a Community - Community Compass</title>
+    <link rel="stylesheet" href="join_community.css" />
+  </head>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="logo">Community Compass</div>
+      <div class="hamburger">☰</div>
+      <nav class="nav-links">
+        <a href="profile.html">My Profile</a>
+        <a href="signin.html" id="signout-link">Sign Out</a>
+      </nav>
+    </header>
 
-  <!-- Top Navigation Bar -->
-  <header class="topbar">
-    <div class="logo">Community Compass</div>
-    <div class="hamburger">☰</div>
-    <nav class="nav-links">
-      <a href="profile.html">My Profile</a>
-      <a href="signin.html" id="signout-link">Sign Out</a>
-    </nav>
-  </header>
+    <div class="container">
+      <div class="form-box">
+        <h2>Join a Community</h2>
 
-  <div class="container">
-    <div class="form-box">
-      <h2>Join a Community</h2>
-
-      <!-- Community Selection -->
-      <div class="community-selection">
-        <label for="community-list">Select a Community:</label>
-        <select id="community-list" name="community-list">
-          <option value="" disabled selected>Select a community</option>
-          <!-- Communities will be populated dynamically -->
-        </select>
-      </div>
-
-      <!-- Welcome Message and Community Details -->
-      <div class="welcome-section" id="welcome-section" style="display: none;">
-        <div class="community-details">
-          <img id="community-picture" src="" alt="Community Profile Picture" class="community-picture">
-          <h3 id="community-name"></h3>
-          <p id="community-description"></p>
+        <!-- Community Selection -->
+        <div class="community-selection">
+          <label for="community-list">Select a Community:</label>
+          <select id="community-list" name="community-list">
+            <option value="" disabled selected>Select a community</option>
+            <!-- Communities will be populated dynamically -->
+          </select>
         </div>
-        <div class="rules-section">
-          <h4>Community Rules</h4>
-          <p id="community-rules"></p>
-          <label>
-            <input type="checkbox" id="rules-acknowledgment" required>
-            I agree to follow the community rules
-          </label>
+
+        <!-- Welcome Message and Community Details -->
+        <div class="welcome-section" id="welcome-section" style="display: none">
+          <div class="community-details">
+            <img
+              id="community-picture"
+              src=""
+              alt="Community Profile Picture"
+              class="community-picture"
+            />
+            <h3 id="community-name"></h3>
+            <p id="community-description"></p>
+          </div>
+          <div class="rules-section">
+            <h4>Community Rules</h4>
+            <p id="community-rules"></p>
+            <label>
+              <input type="checkbox" id="rules-acknowledgment" required />
+              I agree to follow the community rules
+            </label>
+          </div>
+          <div class="notification-settings">
+            <h4>Notification Settings</h4>
+            <label>
+              <input type="checkbox" id="notify-messages" checked />
+              Notify me of new messages
+            </label>
+            <label>
+              <input type="checkbox" id="notify-mentions" checked />
+              Notify me of mentions
+            </label>
+          </div>
+          <button id="join-btn" class="join-btn">Join Community</button>
         </div>
-        <div class="notification-settings">
-          <h4>Notification Settings</h4>
-          <label>
-            <input type="checkbox" id="notify-messages" checked>
-            Notify me of new messages
-          </label>
-          <label>
-            <input type="checkbox" id="notify-mentions" checked>
-            Notify me of mentions
-          </label>
-        </div>
-        <button id="join-btn" class="join-btn">Join Community</button>
       </div>
     </div>
-  </div>
 
-  <script src="join_community.js"></script>
-</body>
+    <script src="join_community.js"></script>
+  </body>
 </html>
