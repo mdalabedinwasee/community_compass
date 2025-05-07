@@ -5,47 +5,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Member Dashboard - Community Compass</title>
   <link rel="stylesheet" href="member_dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-
   <!-- Top Navigation Bar -->
   <header class="topbar">
     <div class="logo">Community Compass</div>
     <div class="hamburger">☰</div>
     <nav class="nav-links">
       <a href="profile.html">My Profile</a>
-      <a href="#" id="notification-bell">🔔 <span id="notification-count">0</span></a>
+      <a href="#" id="chat-link">Chat</a>
+      <a href="#" id="create-post-link">Create a Post</a>
+      <a href="#" id="notification-link">Notification <span id="notification-count">0</span></a>
       <a href="signin.html" id="signout-link">Sign Out</a>
     </nav>
   </header>
 
   <div class="container">
-    <h2>Member Dashboard</h2>
+    <h2 id="dashboard-title">Member Dashboard</h2>
 
-    <!-- Posts and Polls Feed -->
+    <!-- Community Feed Section -->
     <div class="feed-section">
       <h3>Community Feed</h3>
       <div id="feed"></div>
     </div>
 
-    <!-- Chat Box Section -->
-    <div class="chat-box-section">
-      <h3>Community Chat</h3>
-      <div class="chat-members">
-        <h4>Online Members</h4>
-        <ul id="chat-members-list">
-          <li>Member 1</li>
-          <li>Member 2</li>
-        </ul>
-      </div>
-      <div class="chat-messages" id="chat-messages"></div>
-      <div class="chat-input">
-        <input type="text" id="chat-input" placeholder="Type a message...">
-        <button id="send-chat">Send</button>
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="modal">
+      <div class="modal-content">
+        <h3>Community Chat</h3>
+        <button id="view-pinned-messages" class="signup-btn">View Pinned Messages</button>
+        <div id="pinned-messages" style="display: none;"></div>
+        <div id="join-form" style="display: block;">
+          <input type="text" id="username" placeholder="Enter your username" required>
+          <input type="text" id="community-id" placeholder="Enter community ID" required>
+          <button type="button" class="signup-btn" onclick="joinChat()">Join Chat</button>
+        </div>
+        <div id="chat-container" style="display: none;">
+          <div id="chat-messages"></div>
+          <form id="chat-form">
+            <input type="text" id="message-input" placeholder="Type a message..." required>
+            <button type="submit" class="signup-btn">Send</button>
+          </form>
+        </div>
+        <button id="close-chat" class="close-modal">Close</button>
       </div>
     </div>
+
+    <!-- Context Menu for Messages -->
+    <div id="message-context-menu" class="context-menu" style="display: none;">
+      <div class="context-menu-item" onclick="handleContextMenuAction('reply')">Reply</div>
+      <div class="context-menu-item" onclick="handleContextMenuAction('copy')">Copy</div>
+      <div class="context-menu-item" onclick="handleContextMenuAction('forward')">Forward</div>
+      <div class="context-menu-item" onclick="handleContextMenuAction('star')">Star</div>
+      <div class="context-menu-item" onclick="handleContextMenuAction('pin')">Pin</div>
+      <div class="context-menu-item" onclick="handleContextMenuAction('delete')">Delete for me</div>
+      <div class="context-menu-item" onclick="handleContextMenuAction('select')">Select</div>
+      <div class="context-menu-item" onclick="handleContextMenuAction('share')">Share</div>
+      <div class="context-menu-reactions">
+        <span onclick="handleReaction('👍')">👍</span>
+        <span onclick="handleReaction('❤️')">❤️</span>
+        <span onclick="handleReaction('😂')">😂</span>
+        <span onclick="handleReaction('😮')">😮</span>
+        <span onclick="handleReaction('😢')">😢</span>
+        <span onclick="handleReaction('🙏')">🙏</span>
+      </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="create-post-modal" class="modal">
+      <div class="modal-content">
+        <h3>Create a Post</h3>
+        <textarea id="post-content" placeholder="Write your post here..." required></textarea>
+        <label for="post-image">Attach Image (Optional):</label>
+        <input type="file" id="post-image" accept="image/*">
+        <div class="image-preview" id="post-image-preview">
+          <img id="post-preview-img" src="" alt="Post Image Preview" style="display: none;">
+        </div>
+        <button id="submit-post">Post</button>
+        <button id="close-create-post" class="close-modal">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Emergency Alert Modal -->
+    <div id="emergency-modal" class="modal">
+      <div class="modal-content">
+        <h3>Emergency Alert</h3>
+        <textarea id="emergency-description" placeholder="Describe the emergency..." required></textarea>
+        <button id="send-emergency">Send</button>
+        <button id="cancel-emergency">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Emergency Alert Button -->
+    <button id="emergency-alert-button" class="floating-button">SOS</button>
   </div>
 
   <script src="member_dashboard.js"></script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93ba4c0d5c23bf70',t:'MTc0NjU1MzU4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
