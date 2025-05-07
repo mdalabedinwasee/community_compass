@@ -142,7 +142,7 @@ function handleJoinCommunity() {
         }
       }
       alert(`Welcome to ${selectedCommunity.name}! Redirecting to chat...`);
-      window.location.href = `chat.html?community_id=${selectedCommunityId}`;
+      window.location.href = `member_dashboard.html?community_id=${selectedCommunityId}`;
     }
   });
 }
