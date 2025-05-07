@@ -335,33 +335,29 @@ function updateFeed() {
                             <h4>${item.question}</h4>
                             <div class="poll-options">
                                 ${item.options
-                                    .map((opt, index) => `
+                            .map((opt, index) => `
                                         <div class="poll-option-item">
                                             <span>${opt.text}</span>
                                             <span>${opt.votes} votes</span>
-                                            <div class="poll-bar" style="width: ${
-                                                totalVotes ? (opt.votes / totalVotes) * 100 : 0
-                                            }%;"></div>
+                                            <div class="poll-bar" style="width: ${totalVotes ? (opt.votes / totalVotes) * 100 : 0
+                                }%;"></div>
                                         </div>
                                     `)
-                                    .join("")}
+                            .join("")}
                             </div>
                             <div class="reaction-buttons">
-                                <button onclick="reactToPoll(${item.id}, 'thumbsUp')">👍 ${
-                                    item.reactions.thumbsUp
-                                }</button>
-                                <button onclick="reactToPoll(${item.id}, 'thumbsDown')">👎 ${
-                                    item.reactions.thumbsDown
-                                }</button>
+                                <button onclick="reactToPoll(${item.id}, 'thumbsUp')">👍 ${item.reactions.thumbsUp
+                        }</button>
+                                <button onclick="reactToPoll(${item.id}, 'thumbsDown')">👎 ${item.reactions.thumbsDown
+                        }</button>
                             </div>
                             <div class="comments-section">
                                 ${item.comments
-                                    .map((comment) => `<div class="comment">${comment}</div>`)
-                                    .join("")}
+                            .map((comment) => `<div class="comment">${comment}</div>`)
+                            .join("")}
                                 <div class="comment-input">
-                                    <input type="text" placeholder="Add a comment..." id="comment-${
-                                        item.id
-                                    }">
+                                    <input type="text" placeholder="Add a comment..." id="comment-${item.id
+                        }">
                                     <button onclick="addComment(${item.id})">Comment</button>
                                 </div>
                             </div>
@@ -377,9 +373,8 @@ function updateFeed() {
                             <h4>Emergency Alert</h4>
                             <p>From: ${item.sender}</p>
                             <p>${item.description}</p>
-                            <p>Location: <a href="${mapLink}" target="_blank">${
-                                item.location ? "View on Map" : "Location not available"
-                            }</a></p>
+                            <p>Location: <a href="${mapLink}" target="_blank">${item.location ? "View on Map" : "Location not available"
+                        }</a></p>
                             <p><small>${item.timestamp}</small></p>
                         </div>
                     `;
@@ -433,6 +428,23 @@ function updateNotifications() {
 }
 
 // Chat functionality
+let currentMessageId = null;
+let lastMessageTimestamp = null;
+let pollingInterval = null;
+
+async function setCurrentUsernameForRLS() {
+    try {
+        const { error } = await supabase.rpc('set_current_username', { username: currentUsername });
+        if (error) {
+            console.error('Error setting current username for RLS:', error);
+            showError('Failed to set user context.');
+        }
+    } catch (err) {
+        console.error('Unexpected error setting current username:', err);
+        showError('Unexpected error setting user context.');
+    }
+}
+
 function joinChat() {
     const usernameInput = document.getElementById('username');
     const communityIdInput = document.getElementById('community-id');
@@ -444,36 +456,186 @@ function joinChat() {
         return;
     }
 
-    // Hide join form and show chat
+    setCurrentUsernameForRLS();
     document.getElementById('join-form').style.display = 'none';
     document.getElementById('chat-container').style.display = 'block';
-
-    // Load messages and set up real-time
     loadMessages();
     setupRealtime();
+    startPollingMessages(); // Start polling as fallback
 }
 
 async function loadMessages() {
-    const { data, error } = await supabase
-        .from('messages')
-        .select('*')
-        .eq('community_id', currentCommunityId)
-        .order('created_at', { ascending: true });
+    try {
+        const { data, error } = await supabase
+            .from('messages')
+            .select('*')
+            .eq('community_id', currentCommunityId)
+            .order('created_at', { ascending: true });
 
-    if (error) {
-        console.error('Error loading messages:', error);
+        if (error) {
+            console.error('Error loading messages:', error);
+            showError('Failed to load messages: ' + error.message);
+            return;
+        }
+
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.innerHTML = '';
+        data.forEach((msg) => displayMessage(msg));
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        if (data.length > 0) {
+            lastMessageTimestamp = new Date(data[data.length - 1].created_at).toISOString();
+        }
+    } catch (err) {
+        console.error('Unexpected error loading messages:', err);
+        showError('Unexpected error loading messages.');
+    }
+}
+
+function displayMessage(msg) {
+    const chatMessages = document.getElementById('chat-messages');
+    const existingMessage = document.querySelector(`.message[data-message-id="${msg.id}"]`);
+    if (existingMessage) return;
+
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', msg.username === currentUsername ? 'mine' : 'other');
+    messageDiv.dataset.messageId = msg.id;
+
+    const timestamp = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const contentDiv = document.createElement('div');
+    contentDiv.textContent = `${msg.username}: ${msg.content}`;
+    messageDiv.appendChild(contentDiv);
+
+    const timestampDiv = document.createElement('div');
+    timestampDiv.classList.add('message-timestamp');
+    timestampDiv.textContent = timestamp;
+    messageDiv.appendChild(timestampDiv);
+
+    if (msg.username === currentUsername) {
+        messageDiv.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            currentMessageId = msg.id;
+            showContextMenu(e.pageX, e.pageY);
+        });
+    }
+
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showContextMenu(x, y) {
+    const contextMenu = document.getElementById('context-menu');
+    contextMenu.style.top = `${y}px`;
+    contextMenu.style.left = `${x}px`;
+    contextMenu.style.display = 'block';
+    document.addEventListener('click', hideContextMenu, { once: true });
+}
+
+function hideContextMenu() {
+    const contextMenu = document.getElementById('context-menu');
+    contextMenu.style.display = 'none';
+    currentMessageId = null;
+}
+
+async function editMessage() {
+    const messageDiv = document.querySelector(`.message[data-message-id="${currentMessageId}"]`);
+    if (!messageDiv) {
+        showError('Message not found.');
         return;
     }
 
-    const chatMessages = document.getElementById('chat-messages');
-    chatMessages.innerHTML = '';
-    data.forEach((msg) => {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', msg.username === currentUsername ? 'mine' : 'other');
-        messageDiv.textContent = `${msg.username}: ${msg.content}`;
-        chatMessages.appendChild(messageDiv);
+    const contentDiv = messageDiv.querySelector('div:first-child');
+    const originalContent = contentDiv.textContent.split(': ').slice(1).join(': ');
+
+    messageDiv.innerHTML = '';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.classList.add('message-edit-input');
+    input.value = originalContent;
+    messageDiv.appendChild(input);
+
+    const buttonDiv = document.createElement('div');
+    buttonDiv.classList.add('message-edit-buttons');
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
+    cancelButton.classList.add('cancel');
+    buttonDiv.appendChild(saveButton);
+    buttonDiv.appendChild(cancelButton);
+    messageDiv.appendChild(buttonDiv);
+
+    saveButton.addEventListener('click', async () => {
+        const newContent = input.value.trim();
+        if (!newContent) {
+            alert('Message content cannot be empty.');
+            return;
+        }
+
+        try {
+            await setCurrentUsernameForRLS();
+            const { data, error } = await supabase
+                .from('messages')
+                .update({ content: newContent })
+                .eq('id', currentMessageId)
+                .eq('username', currentUsername)
+                .select();
+
+            if (error) {
+                console.error('Error updating message:', error);
+                showError('Failed to update message: ' + error.message);
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                console.error('No rows updated. Possible RLS restriction.');
+                showError('Unable to update message.');
+                return;
+            }
+
+            messageDiv.innerHTML = '';
+            hideContextMenu();
+        } catch (err) {
+            console.error('Unexpected error updating message:', err);
+            showError('Unexpected error updating message.');
+        }
     });
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    cancelButton.addEventListener('click', () => {
+        loadMessages();
+        hideContextMenu();
+    });
+}
+
+async function deleteMessage() {
+    if (!confirm('Are you sure you want to delete this message?')) return;
+
+    try {
+        await setCurrentUsernameForRLS();
+        const { data, error } = await supabase
+            .from('messages')
+            .delete()
+            .eq('id', currentMessageId)
+            .eq('username', currentUsername)
+            .select();
+
+        if (error) {
+            console.error('Error deleting message:', error);
+            showError('Failed to delete message: ' + error.message);
+            return;
+        }
+
+        if (!data || data.length === 0) {
+            console.error('No rows deleted. Possible RLS restriction.');
+            showError('Unable to delete message.');
+            return;
+        }
+
+        hideContextMenu();
+    } catch (err) {
+        console.error('Unexpected error deleting message:', err);
+        showError('Unexpected error deleting message.');
+    }
 }
 
 document.getElementById('chat-form').addEventListener('submit', async (e) => {
@@ -483,68 +645,158 @@ document.getElementById('chat-form').addEventListener('submit', async (e) => {
 
     if (!content) return;
 
-    const { error } = await supabase
-        .from('messages')
-        .insert({
-            community_id: currentCommunityId,
-            username: currentUsername,
-            content,
-        });
+    try {
+        await setCurrentUsernameForRLS();
+        const { data, error } = await supabase
+            .from('messages')
+            .insert({
+                community_id: currentCommunityId,
+                username: currentUsername,
+                content,
+            })
+            .select();
 
-    if (error) {
-        console.error('Error sending message:', error);
+        if (error) {
+            console.error('Error sending message:', error);
+            showError('Failed to send message: ' + error.message);
+            return;
+        }
+
+        messageInput.value = '';
+        if (data && data.length > 0) {
+            displayMessage(data[0]); // Display immediately
+        }
+    } catch (err) {
+        console.error('Unexpected error sending message:', err);
+        showError('Unexpected error sending message.');
     }
-
-    messageInput.value = '';
 });
 
+function startPollingMessages() {
+    if (pollingInterval) clearInterval(pollingInterval);
+
+    pollingInterval = setInterval(async () => {
+        try {
+            if (!lastMessageTimestamp) return;
+
+            const { data, error } = await supabase
+                .from('messages')
+                .select('*')
+                .eq('community_id', currentCommunityId)
+                .gt('created_at', lastMessageTimestamp)
+                .order('created_at', { ascending: true });
+
+            if (error) {
+                console.error('Error polling messages:', error);
+                return;
+            }
+
+            if (data && data.length > 0) {
+                data.forEach((msg) => displayMessage(msg));
+                lastMessageTimestamp = new Date(data[data.length - 1].created_at).toISOString();
+            }
+        } catch (err) {
+            console.error('Unexpected error polling messages:', err);
+        }
+    }, 2000); // Poll every 2 seconds for faster updates
+}
+
+function stopPollingMessages() {
+    if (pollingInterval) {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+    }
+}
+
 function setupRealtime() {
-    supabase
+    supabase.removeAllChannels();
+
+    const channel = supabase
         .channel(`public:messages:community_id=eq.${currentCommunityId}`)
         .on(
             'postgres_changes',
-            {
-                event: 'INSERT',
-                schema: 'public',
-                table: 'messages',
-                filter: `community_id=eq.${currentCommunityId}`,
-            },
+            { event: 'INSERT', schema: 'public', table: 'messages', filter: `community_id=eq.${currentCommunityId}` },
             (payload) => {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message', payload.new.username === currentUsername ? 'mine' : 'other');
-                messageDiv.textContent = `${payload.new.username}: ${payload.new.content}`;
-                document.getElementById('chat-messages').appendChild(messageDiv);
-                document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+                console.log('INSERT event:', payload);
+                displayMessage(payload.new);
+                lastMessageTimestamp = new Date(payload.new.created_at).toISOString();
+                stopPollingMessages();
             }
         )
-        .subscribe();
+        .on(
+            'postgres_changes',
+            { event: 'UPDATE', schema: 'public', table: 'messages', filter: `community_id=eq.${currentCommunityId}` },
+            (payload) => {
+                console.log('UPDATE event:', payload);
+                const messageDiv = document.querySelector(`.message[data-message-id="${payload.new.id}"]`);
+                if (messageDiv) {
+                    messageDiv.innerHTML = '';
+                    displayMessage(payload.new);
+                }
+            }
+        )
+        .on(
+            'postgres_changes',
+            { event: 'DELETE', schema: 'public', table: 'messages', filter: `community_id=eq.${currentCommunityId}` },
+            (payload) => {
+                console.log('DELETE event:', payload);
+                const messageDiv = document.querySelector(`.message[data-message-id="${payload.old.id}"]`);
+                if (messageDiv) {
+                    messageDiv.remove();
+                }
+            }
+        )
+        .subscribe((status, err) => {
+            console.log('Subscription status:', status, err);
+            if (status === 'SUBSCRIBED') {
+                console.log('Real-time subscription established.');
+                stopPollingMessages();
+            } else if (err || status === 'CLOSED' || status === 'CHANNEL_ERROR') {
+                console.error('Subscription failed:', err || status);
+                showError('Real-time updates failed. Using polling as fallback.');
+                startPollingMessages();
+            }
+        });
 }
 
 function setupChat() {
     try {
-        const modal = document.getElementById("chat-modal");
-        const openModal = document.getElementById("chat-link");
-        const closeModal = document.getElementById("close-chat");
+        const modal = document.getElementById('chat-modal');
+        const openModal = document.getElementById('chat-link');
+        const closeModal = document.getElementById('close-chat');
 
-        openModal.addEventListener("click", (event) => {
+        openModal.addEventListener('click', (event) => {
             event.preventDefault();
-            modal.style.display = "block";
+            modal.style.display = 'block';
         });
 
-        closeModal.addEventListener("click", () => {
-            modal.style.display = "none";
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
             document.getElementById('join-form').style.display = 'block';
             document.getElementById('chat-container').style.display = 'none';
             currentUsername = '';
             currentCommunityId = '';
             const chatMessages = document.getElementById('chat-messages');
             if (chatMessages) chatMessages.innerHTML = '';
+            supabase.removeAllChannels();
+            stopPollingMessages();
+            lastMessageTimestamp = null;
         });
+
+        // Add manual refresh button
+        const refreshButton = document.createElement('button');
+        refreshButton.textContent = 'Refresh Messages';
+        refreshButton.classList.add('signup-btn');
+        refreshButton.style.marginTop = '10px';
+        refreshButton.addEventListener('click', loadMessages);
+        document.getElementById('chat-container').appendChild(refreshButton);
     } catch (error) {
-        showError("Error setting up chat.");
+        showError('Error setting up chat: ' + error.message);
     }
 }
 
+window.editMessage = editMessage;
+window.deleteMessage = deleteMessage;
 // Hamburger menu
 function setupHamburgerMenu() {
     try {

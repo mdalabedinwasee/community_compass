@@ -331,7 +331,29 @@ h3 {
     background-color: #f9f9f9;
     border-radius: 6px;
 }
+/* Context Menu */
+.context-menu {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 3000;
+    min-width: 100px;
+}
 
+.context-menu-item {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.context-menu-item:hover {
+    background-color: #f0f2f5;
+}
+
+/* Message Styling with Timestamp */
 .message {
     max-width: 70%;
     padding: 8px 12px;
@@ -340,6 +362,7 @@ h3 {
     font-size: 14px;
     line-height: 1.4;
     word-wrap: break-word;
+    position: relative;
 }
 
 .message.mine {
@@ -356,6 +379,59 @@ h3 {
     text-align: left;
 }
 
+.message-timestamp {
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.message.mine .message-timestamp {
+    color: #d1ebeb;
+}
+
+.message.other .message-timestamp {
+    text-align: left;
+}
+
+/* Edit Input */
+.message-edit-input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.message-edit-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+    justify-content: flex-end;
+}
+
+.message-edit-buttons button {
+    background-color: #008080;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.message-edit-buttons button.cancel {
+    background-color: #ccc;
+}
+
+.message-edit-buttons button:hover {
+    background-color: #006666;
+}
+
+.message-edit-buttons button.cancel:hover {
+    background-color: #bbb;
+}
 input[type="text"] {
     width: 94%;
     padding: 10px;
