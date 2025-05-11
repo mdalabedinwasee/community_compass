@@ -103,6 +103,30 @@
         </div>
       </div>
 
+      <!-- Edit Post Modal -->
+      <div id="edit-post-modal" class="modal">
+        <div class="modal-content">
+          <h3>Edit Post</h3>
+          <textarea
+            id="edit-post-content"
+            placeholder="Write your post here..."
+            required
+          ></textarea>
+          <label for="edit-post-image">Attach Image (Optional):</label>
+          <input type="file" id="edit-post-image" accept="image/*" />
+          <div class="image-preview" id="edit-post-image-preview">
+            <img
+              id="edit-post-preview-img"
+              src=""
+              alt="Post Image Preview"
+              style="display: none"
+            />
+          </div>
+          <button id="submit-edit-post">Save Changes</button>
+          <button id="close-edit-post" class="close-modal">Cancel</button>
+        </div>
+      </div>
+
       <!-- Create Poll Modal -->
       <div id="create-poll-modal" class="modal">
         <div class="modal-content">
@@ -209,6 +233,12 @@
       <div id="poll-context-menu" class="context-menu" style="display: none">
         <div class="context-menu-item" onclick="editPoll()">Edit</div>
         <div class="context-menu-item" onclick="deletePoll()">Delete</div>
+      </div>
+
+      <!-- Post Context Menu -->
+      <div id="post-context-menu" class="context-menu" style="display: none">
+        <div class="context-menu-item" onclick="editPost()">Edit</div>
+        <div class="context-menu-item" onclick="deletePost()">Delete</div>
       </div>
     </div>
 
@@ -326,6 +356,41 @@
             var d = b.createElement("script");
             d.innerHTML =
               "window.__CF$cv$params={r:'93e18bde298a7bb4',t:'MTc0Njk2NTE0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'93e2c515fe76674d',t:'MTc0Njk3Nzk3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
