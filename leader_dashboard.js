@@ -33,7 +33,7 @@ let communityData = {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1iaGRoaWV4ZmthbW1pYmlmZHVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NTE3MTAsImV4cCI6MjA2MTUyNzcxMH0.EXO5ybawj1KPxGSkzgPlVBiyvLbVKd2QVu-ptX9MDK4"
   );
   
-  let currentUsername = "";
+  let currentUsername = localStorage.getItem("currentUsername") || "Anonymous"; // Initialize with a fallback
   let currentCommunityId = "";
   let currentPollId = null; // To track the poll being edited or deleted
   
@@ -159,8 +159,11 @@ let communityData = {
           id: Date.now(),
           type: "post",
           content,
+          creator: currentUsername, // Add creator field
           image: imageFile ? URL.createObjectURL(imageFile) : null,
           timestamp: new Date().toLocaleString(),
+          likes: [],
+          comments: [],
         };
   
         communityData.posts.push(post);
@@ -173,6 +176,63 @@ let communityData = {
       });
     } catch (error) {
       showError("Error setting up post creation: " + error.message);
+    }
+  }
+  
+  // Handle Like/Unlike
+  function toggleLike(postId) {
+    try {
+      const post = communityData.posts.find((p) => p.id === postId);
+      if (!post) return;
+  
+      const userId = currentUsername || "anonymous";
+      const hasLiked = post.likes.includes(userId);
+  
+      if (hasLiked) {
+        post.likes = post.likes.filter((id) => id !== userId);
+      } else {
+        post.likes.push(userId);
+      }
+  
+      updateFeed();
+    } catch (error) {
+      showError("Error toggling like: " + error.message);
+    }
+  }
+  
+  // Handle Comment Submission
+  function submitComment(postId) {
+    try {
+      const post = communityData.posts.find((p) => p.id === postId);
+      if (!post) return;
+  
+      const commentInput = document.getElementById(`comment-input-${postId}`);
+      const content = commentInput.value.trim();
+      if (!content) {
+        alert("Comment cannot be empty.");
+        return;
+      }
+  
+      const comment = {
+        id: Date.now(),
+        content,
+        username: currentUsername || "Anonymous",
+        timestamp: new Date().toLocaleString(),
+      };
+  
+      post.comments.push(comment);
+      commentInput.value = "";
+      updateFeed();
+    } catch (error) {
+      showError("Error submitting comment: " + error.message);
+    }
+  }
+  
+  // Toggle Comment Section
+  function toggleCommentSection(postId) {
+    const commentSection = document.getElementById(`comment-section-${postId}`);
+    if (commentSection) {
+      commentSection.classList.toggle("active");
     }
   }
   
@@ -559,11 +619,38 @@ let communityData = {
       feed.innerHTML = allItems
         .map((item) => {
           if (item.type === "post") {
+            const userId = currentUsername || "anonymous";
+            const hasLiked = item.likes.includes(userId);
             return `
               <div class="feed-item">
+                <div class="creator">${item.creator}</div>
                 <p>${item.content}</p>
                 ${item.image ? `<img src="${item.image}" alt="Post Image">` : ""}
                 <p><small>${item.timestamp}</small></p>
+                <div class="post-actions">
+                  <button class="react-button ${hasLiked ? "active" : ""}" onclick="toggleLike(${item.id})">
+                    ${hasLiked ? "Unlike" : "Like"} (${item.likes.length})
+                  </button>
+                  <button class="comment-button" onclick="toggleCommentSection(${item.id})">
+                    Comment (${item.comments.length})
+                  </button>
+                </div>
+                <div id="comment-section-${item.id}" class="comment-section">
+                  <div class="comment-list">
+                    ${item.comments
+                      .map(
+                        (comment) => `
+                          <div class="comment-item">
+                            <strong>${comment.username}</strong>: ${comment.content}
+                            <br><small>${comment.timestamp}</small>
+                          </div>
+                        `
+                      )
+                      .join("")}
+                  </div>
+                  <textarea id="comment-input-${item.id}" class="comment-input" placeholder="Write a comment..."></textarea>
+                  <button class="comment-submit" onclick="submitComment(${item.id})">Post</button>
+                </div>
               </div>
             `;
           } else if (item.type === "poll") {
@@ -599,9 +686,7 @@ let communityData = {
                         ${isActive ? "" : "disabled"}
                         onchange="voteOnPoll(${item.id}, ${index})"
                       >
-                      <label for="poll-${item.id}-option-${index}">${
-                        opt.text
-                      }</label>
+                      <label for="poll-${item.id}-option-${index}">${opt.text}</label>
                       <span>${opt.votes} votes</span>
                       <div class="poll-bar" style="width: ${
                         totalVotes ? (opt.votes / totalVotes) * 100 : 0
@@ -635,6 +720,7 @@ let communityData = {
               </div>
             `;
           }
+          return "";
         })
         .join("");
     } catch (error) {
@@ -683,6 +769,7 @@ let communityData = {
       return;
     }
   
+    localStorage.setItem("currentUsername", currentUsername); // Persist username
     setCurrentUsernameForRLS();
     document.getElementById("join-form").style.display = "none";
     document.getElementById("chat-container").style.display = "block";
@@ -1037,7 +1124,7 @@ let communityData = {
         modal.style.display = "none";
         document.getElementById("join-form").style.display = "block";
         document.getElementById("chat-container").style.display = "none";
-        currentUsername = "";
+        currentUsername = localStorage.getItem("currentUsername") || "Anonymous";
         currentCommunityId = "";
         const chatMessages = document.getElementById("chat-messages");
         if (chatMessages) chatMessages.innerHTML = "";
@@ -1129,3 +1216,6 @@ let communityData = {
   window.showPollContextMenu = showPollContextMenu;
   window.editPoll = editPoll;
   window.deletePoll = deletePoll;
+  window.toggleLike = toggleLike;
+  window.submitComment = submitComment;
+  window.toggleCommentSection = toggleCommentSection;
