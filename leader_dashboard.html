@@ -127,9 +127,42 @@
               required
             />
           </div>
+          <label for="poll-timer">Poll Duration (Optional, in days):</label>
+          <input
+            type="number"
+            id="poll-timer"
+            placeholder="e.g., 1 for 1 day"
+            min="0"
+            step="1"
+          />
           <button id="add-poll-option">Add Option</button>
           <button id="submit-poll">Create Poll</button>
           <button id="close-create-poll" class="close-modal">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Edit Poll Modal -->
+      <div id="edit-poll-modal" class="modal">
+        <div class="modal-content">
+          <h3>Edit Poll</h3>
+          <input
+            type="text"
+            id="edit-poll-question"
+            placeholder="Poll Question"
+            required
+          />
+          <div id="edit-poll-options"></div>
+          <label for="edit-poll-timer">Poll Duration (Optional, in days):</label>
+          <input
+            type="number"
+            id="edit-poll-timer"
+            placeholder="e.g., 1 for 1 day"
+            min="0"
+            step="1"
+          />
+          <button id="add-edit-poll-option">Add Option</button>
+          <button id="submit-edit-poll">Save Changes</button>
+          <button id="close-edit-poll" class="close-modal">Cancel</button>
         </div>
       </div>
 
@@ -171,6 +204,12 @@
 
       <!-- Emergency Alert Button -->
       <button id="emergency-alert-button" class="floating-button">SOS</button>
+
+      <!-- Poll Context Menu -->
+      <div id="poll-context-menu" class="context-menu" style="display: none">
+        <div class="context-menu-item" onclick="editPoll()">Edit</div>
+        <div class="context-menu-item" onclick="deletePoll()">Delete</div>
+      </div>
     </div>
 
     <script src="leader_dashboard.js"></script>
@@ -182,6 +221,76 @@
             var d = b.createElement("script");
             d.innerHTML =
               "window.__CF$cv$params={r:'93a729ddcdebbf9a',t:'MTc0NjM1Mjk1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'93e08c2b78594577',t:'MTc0Njk1NDY3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'93e0e53fd8bbbf70',t:'MTc0Njk1ODMyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
